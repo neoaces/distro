@@ -1,4 +1,5 @@
 #include "follower.h"
+#include "indexing.h"
 #include "main.h"
 #include "ui.h"
 #include "types.h"
@@ -14,7 +15,7 @@ void runLoop(state_t &state) {
 
 	// RESTOCK MODE: robot indexes items
 	else if (state.mode == 1) {
-
+		ind_index(state, pop(state.stack));
 	}
 
 	// ENDSHIFT MODE: call shutdown procedure

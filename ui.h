@@ -4,7 +4,7 @@
 // Route: during journey, moving to delivery bay or during return trip
 // TODO: define all the pathfinding logic when robot is in this state.
 // Deliver: aligns robot to bay, moves objects off the robot
-const string States[5] = {"Standby", "Restock", "End Shift", "Route", "Deliver"};
+
 const string StandbyStates[2] = {"Restock", "End Shift"};
 
 void increment(ubyte &n, ubyte limit) {
@@ -57,6 +57,6 @@ ubyte ui_get_selection(state_t &state, int n, string *selections) {
 	}
 }
 
-ubyte ui_get_standby_state(state_t &state) {
-	return ui_get_selection(state, 1, StandbyStates) + 1; // Accounts for offset in mode representation
+color_e ui_get_standby_state(state_t &state) {
+	return (color_e) ui_get_selection(state, 1, StandbyStates) + 1; // Accounts for offset in mode representation
 }
