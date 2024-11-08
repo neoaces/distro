@@ -8,20 +8,21 @@ typedef enum States {
 	Deliver = 4,
 } states_e;
 
+// When the destination is None, then it returns to the loading bay.
+// These also refer to the array positions of the colors in their stacks.
 typedef enum Colors {
-	None = 0,
-	Yellow = 1,
+	None = -1,
+	Red = 0,
+	Blue = 1,
+	Green = 2,
 } color_e;
 
 typedef struct SystemState {
 	states_e mode; // Refers to either startup, restock, delivery, or end_shift.
-	color_e stack[6]; // TODO: update with new data structure.
+	int stack[3][2]; // TODO: update with new data structure.
+	color_e destination;
 } state_t;
 
 void init_state(state_t &state) {
-	state.mode = 0; // Enters standby mode.
-
-	for (int i = 0; i < 6; i++) {
-		state.stack[i] = None;
-	}
+	state.mode = Standby; // Enters standby mode.
 }

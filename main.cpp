@@ -1,3 +1,4 @@
+#include "deliver.h"
 #include "follower.h"
 #include "indexing.h"
 #include "main.h"
@@ -5,8 +6,6 @@
 #include "types.h"
 
 
-// TODO: Determine next actions based on the state of the robot in this function
-// 			 Consider a simple match statement.
 void runLoop(state_t &state) {
 	// STANDBY MODE: await RESTOCK or END_SHIFT command
 	if (state.mode == 0) {
@@ -15,10 +14,10 @@ void runLoop(state_t &state) {
 
 	// RESTOCK MODE: robot indexes items
 	else if (state.mode == 1) {
-		ind_index(state, pop(state.stack));
+		ind_index(state);
 	}
 
-	// ENDSHIFT MODE: call shutdown procedure
+	// END_SHIFT MODE: call shutdown procedure
 	else if (state.mode == 2) {
 		shutdown();
 	}
@@ -30,13 +29,15 @@ void runLoop(state_t &state) {
 
 	// DELIVER: moving box off robot
 	else if (state.mode == 2) {
-
+		dvr_deliver(state);
 	}
 }
 
 task main() {
+	init_program(); // Initializes system
+	test_run_tests(); // Runs unit tests
 	state_t state;
-	init_state(state);
+	init_state(state); // Initializes global system state
 
 	while (state.mode != -1) {
 		runLoop(state);

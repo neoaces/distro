@@ -57,6 +57,6 @@ ubyte ui_get_selection(state_t &state, int n, string *selections) {
 	}
 }
 
-color_e ui_get_standby_state(state_t &state) {
-	return (color_e) ui_get_selection(state, 1, StandbyStates) + 1; // Accounts for offset in mode representation
+states_e ui_get_standby_state(state_t &state) {
+	return (states_e) ui_get_selection(state, 1, StandbyStates) + 1; // Accounts for offset in mode representation
 }
