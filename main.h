@@ -31,7 +31,7 @@ int peek_stack(state_t &state, color_e index) {
 
 
 int push_stack(state_t &state, color_e index) {
-	for (int i = 0; i < 6; i++) {
+	for (int i = 0; i <= 1; i++) {
 		if (peek_stack(state, index) != -1) {
 			state.stack[(int) index][i] = 1;
 			return 0;

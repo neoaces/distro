@@ -4,6 +4,7 @@
 
 void dvr_deliver(state_t &state) {
 	// UNIMPLEMENTED: Align and drive robot into bay.
+	// Once aligned
 
 	for (int i = 0; i < 3; i++) {
 		if (peek_stack(state, (color_e) i) != 0) {

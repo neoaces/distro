@@ -35,7 +35,9 @@ void runLoop(state_t &state) {
 
 task main() {
 	init_program(); // Initializes system
-	test_run_tests(); // Runs unit tests
+	if (test_run_tests() != 0) { // Runs unit tests
+		// Failed tests
+	};
 	state_t state;
 	init_state(state); // Initializes global system state
 

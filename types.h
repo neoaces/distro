@@ -8,6 +8,7 @@ typedef enum States {
 	Deliver = 4,
 } states_e;
 
+// The colors define the destination for the robot, which flr_route() uses.
 // When the destination is None, then it returns to the loading bay.
 // These also refer to the array positions of the colors in their stacks.
 typedef enum Colors {
