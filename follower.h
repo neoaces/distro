@@ -2,15 +2,14 @@
 #include "types.h"
 #include "main.h"
 
-void flr_travel_loop(int rotations, state_t *state) {
-	// TODO: Switch mode to reflected.
+void flr_travel_loop(int degrees_rotation, state_t *state) {
 	const float kp = 0.2;
 	const float kd = 0.01;
-	float last_error = 0, error = 0, derivative = 0, correction = 0, base_speed = -25;
+	float last_error = 0, error = 0, derivative = 0, correction = 0, base_speed = -15;
 
 	nMotorEncoder[motorC] = 0;
 
-	while(abs(nMotorEncoder[motorC]) < rotations) {
+	while(abs(nMotorEncoder[motorC]) < degrees_rotation) {
 		error = getColorReflected(S3) - getColorReflected(S2);
 
 		// Note: we want to take away the change in error as to decrease the effect of the derivative, thus they are switched
