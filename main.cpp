@@ -38,10 +38,14 @@ task main() {
 	// if (test_run_tests() != 0) { // Runs unit tests
 		// Failed tests
 	// };
+
 	state_t state;
 	init_state(state); // Initializes global system state
-
+	/*
 	while (state.mode != -1) {
 		runLoop(state);
 	}
+	*/
+
+	flr_travel_loop(1600, state);
 }

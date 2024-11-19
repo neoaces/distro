@@ -26,8 +26,8 @@ typedef struct SystemState {
 
 void init_state(state_t &state) {
 	// TEST 10:57PM only follow route
-	//state.mode = Route; // Enters standby mode.
+	state.mode = Route; // Enters standby mode.
 
 	// TEST 10:57PM test UI
-	state.mode = Standby;
+	//state.mode = Standby;
 }
