@@ -14,8 +14,8 @@ typedef enum States {
 typedef enum Colors {
 	None = -1,
 	Red = 0,
-	Blue = 1,
-	Green = 2,
+	Green = 1,
+	Yellow = 2,
 } color_e;
 
 typedef struct SystemState {

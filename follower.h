@@ -3,6 +3,7 @@
 #include "main.h"
 
 void flr_travel_loop(int rotations, state_t *state) {
+	// TODO: Switch mode to reflected.
 	const float kp = 0.2;
 	const float kd = 0.01;
 	float last_error = 0, error = 0, derivative = 0, correction = 0, base_speed = -25;
@@ -19,6 +20,27 @@ void flr_travel_loop(int rotations, state_t *state) {
 		motor[motorC] = base_speed + correction;
 		motor[motorD] = base_speed - correction;
 		last_error = error;
+	}
+}
+
+void flr_seek_color(color_e color, state_t *state) {
+	// TODO: Switch mode to color.
+	int required = 0;
+	switch (color) {
+		case Red:
+			required = colorRed;
+			break;
+		case Green:
+			required = colorGreen;
+			break;
+		case Yellow:
+			required = colorYellow;
+			break;
+	}
+
+	while (getColorName(S3) != required) {
+		motor[motorC] = 10;
+		motor[motorD] = 10;
 	}
 }
 
