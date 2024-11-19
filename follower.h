@@ -8,8 +8,9 @@ void flr_travel_loop(int degrees_rotation, state_t *state) {
 	float last_error = 0, error = 0, derivative = 0, correction = 0, base_speed = -15;
 
 	nMotorEncoder[motorC] = 0;
+	nMotorEncoder[motorD] = 0;
 
-	while(abs(nMotorEncoder[motorC]) < degrees_rotation) {
+	while(abs(nMotorEncoder[motorC]) < degrees_rotation && abs(nMotorEncoder[motorC]) < degrees_rotation) {
 		error = getColorReflected(S3) - getColorReflected(S2);
 
 		// Note: we want to take away the change in error as to decrease the effect of the derivative, thus they are switched
@@ -22,32 +23,57 @@ void flr_travel_loop(int degrees_rotation, state_t *state) {
 	}
 }
 
-void flr_seek_color(color_e color, state_t *state) {
-	// TODO: Switch mode to color.
-	int required = 0;
-	switch (color) {
-		case Red:
-			required = colorRed;
-			break;
-		case Green:
-			required = colorGreen;
-			break;
-		case Yellow:
-			required = colorYellow;
-			break;
-	}
+void flr_seek_color(int color) {
 
-	while (getColorName(S3) != required) {
-		motor[motorC] = 10;
-		motor[motorD] = 10;
+	motor[motorC] = motor[motorD] = -10;
+	while (getColorName(S3) != color && getColorName(S2) != color) {
 	}
+	motor[motorC] = motor[motorD] = 0;
+}
+
+void flr_color_seek_rotate(int color, bool is_turning_left) {
+	nMotorEncoder[motorC] = 0;
+
+	if(!is_turning_left) {
+		motor[motorC] = 7;
+		motor[motorD] = -7;
+		while(abs(nMotorEncoder[motorC]) <= 80){};
+		motor[motorC] = 5;
+		motor[motorD] = -5;
+		while (getColorName(S2) != color) {
+		}
+	} else {
+		motor[motorC] = -7;
+		motor[motorD] = 7;
+		while(abs(nMotorEncoder[motorC]) <= 80){};
+		motor[motorC] = -5;
+		motor[motorD] = 5;
+		while (getColorName(S3) != color) {
+		}
+	}
+	motor[motorC] = motor[motorD] = 0;
 }
 
 void flr_route(state_t &state) {
-	const int distances[4] = {1500, 1500, 1500, 1500};
+	const int distances[3] = {1900, 1200, 2100};
+	const int colors[3] = {colorGreen, colorGreen, colorGreen};
 
-	for (int i = 0; i < 4; i++) {
+	for (int i = 0; i < 3; i++) {
 		flr_travel_loop(distances[i], state);
+		flr_seek_color(colors[i]);
+		wait1Msec(1000);
+		flr_color_seek_rotate(colorBlack, true);
+		flr_travel_loop(250, state);
+		flr_seek_color(colors[i]);
+		wait1Msec(1000);
+		nMotorEncoder[motorD] = 0;
+		motor[motorC] = motor[motorD] = 15;
+		while(abs(nMotorEncoder[motorD]) <= 350){}
+		motor[motorC] = motor[motorD] = 0;
+		flr_color_seek_rotate(colorBlack, false);
+		sensorReset(S2);
+		sensorReset(S3);
+		wait1Msec(1000);
 	}
 
 	state.mode = Deliver; // Moves to delivery state when finished

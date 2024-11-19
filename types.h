@@ -12,10 +12,11 @@ typedef enum States {
 // When the destination is None, then it returns to the loading bay.
 // These also refer to the array positions of the colors in their stacks.
 typedef enum Colors {
-	None = -1,
-	Red = 0,
-	Green = 1,
-	Yellow = 2,
+	None = 0,
+	Black = 1,
+	Green = 3,
+	Yellow = 4,
+	Red = 5,
 } color_e;
 
 typedef struct SystemState {

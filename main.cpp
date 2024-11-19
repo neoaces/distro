@@ -46,6 +46,6 @@ task main() {
 		runLoop(state);
 	}
 	*/
+	flr_route(state);
 
-	flr_travel_loop(1600, state);
 }
