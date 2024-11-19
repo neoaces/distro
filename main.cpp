@@ -14,7 +14,7 @@ void runLoop(state_t &state) {
 
 	// RESTOCK MODE: robot indexes items
 	else if (state.mode == 1) {
-		ind_index(state);
+		loading();
 	}
 
 	// END_SHIFT MODE: call shutdown procedure
@@ -25,6 +25,7 @@ void runLoop(state_t &state) {
 	// ROUTE MODE: routing and line following
 	else if (state.mode == 3) {
 		flr_route(state);
+		flr_travel_loop(1400, state);
 	}
 
 	// DELIVER: moving box off robot
@@ -46,6 +47,13 @@ task main() {
 		runLoop(state);
 	}
 	*/
-	flr_route(state);
 
+	/*
+	flr_route(state);
+	flr_travel_loop(1400, state);
+	*/
+
+	loading();
+	flr_route(state);
+	flr_travel_loop(1400, state);
 }

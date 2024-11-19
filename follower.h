@@ -3,7 +3,7 @@
 #include "main.h"
 
 void flr_travel_loop(int degrees_rotation, state_t *state) {
-	const float kp = 0.2;
+	const float kp = 0.3;
 	const float kd = 0.01;
 	float last_error = 0, error = 0, derivative = 0, correction = 0, base_speed = -15;
 
@@ -35,16 +35,16 @@ void flr_color_seek_rotate(int color, bool is_turning_left) {
 	nMotorEncoder[motorC] = 0;
 
 	if(!is_turning_left) {
-		motor[motorC] = 7;
-		motor[motorD] = -7;
+		motor[motorC] = 10;
+		motor[motorD] = -10;
 		while(abs(nMotorEncoder[motorC]) <= 80){};
 		motor[motorC] = 5;
 		motor[motorD] = -5;
 		while (getColorName(S2) != color) {
 		}
 	} else {
-		motor[motorC] = -7;
-		motor[motorD] = 7;
+		motor[motorC] = -10;
+		motor[motorD] = 10;
 		while(abs(nMotorEncoder[motorC]) <= 80){};
 		motor[motorC] = -5;
 		motor[motorD] = 5;
@@ -55,17 +55,16 @@ void flr_color_seek_rotate(int color, bool is_turning_left) {
 }
 
 void flr_route(state_t &state) {
-	const int distances[3] = {1900, 1200, 2100};
-	const int colors[3] = {colorGreen, colorGreen, colorGreen};
+	const int distances[3] = {2300, 1200, 2100};
 
 	for (int i = 0; i < 3; i++) {
 		flr_travel_loop(distances[i], state);
-		flr_seek_color(colors[i]);
+		flr_seek_color(colorGreen);
 		wait1Msec(1000);
 		flr_color_seek_rotate(colorBlack, true);
 		flr_travel_loop(250, state);
-		flr_seek_color(colors[i]);
-		wait1Msec(1000);
+		flr_seek_color(colorGreen);
+		wait1Msec(5000);
 		nMotorEncoder[motorD] = 0;
 		motor[motorC] = motor[motorD] = 15;
 		while(abs(nMotorEncoder[motorD]) <= 350){}
