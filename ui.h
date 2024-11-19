@@ -64,3 +64,47 @@ ubyte ui_get_selection(state_t &state, int n, string *selections) {
 states_e ui_get_standby_state(state_t &state) {
 	return (states_e) ui_get_selection(state, 1, StandbyStates) + 1; // Accounts for offset in mode representation
 }
+
+void ui_standby(state_t &state) {
+	displayCenteredTextLine(3, "Right Button > Run");
+	displayCenteredTextLine(4, "Left Button > Shutdown");
+	while(true) {
+		if(getButtonPress(buttonRight)) {
+			eraseDisplay();
+			displayCenteredTextLine(3, "Right Button > Confirm");
+			displayCenteredTextLine(4, "Left Button > Deny");
+			wait1Msec(500);
+			while(!getButtonPress(buttonRight) && !getButtonPress(buttonLeft)) {}
+			if (getButtonPress(buttonRight)) {
+				eraseDisplay();
+				displayCenteredTextLine(3, "Running Route");
+				state.mode = Restock;
+				wait1Msec(3000);
+				return;
+			} else if (getButtonPress(buttonLeft)) {
+				eraseDisplay();
+				displayCenteredTextLine(3, "Right Button > Run");
+				displayCenteredTextLine(4, "Left Button > Shutdown");
+				wait1Msec(500);
+			}
+		} else if(getButtonPress(buttonLeft)) {
+			eraseDisplay();
+			displayCenteredTextLine(3, "Right Button > Confirm");
+			displayCenteredTextLine(4, "Left Button > Deny");
+			wait1Msec(500);
+			while(!getButtonPress(buttonRight) && !getButtonPress(buttonLeft)) {}
+			if (getButtonPress(buttonRight)) {
+				eraseDisplay();
+				displayCenteredTextLine(3, "Shutting Down");
+				wait1Msec(3000);
+				state.mode = End_Shift;
+				return;
+			} else if (getButtonPress(buttonLeft)) {
+				eraseDisplay();
+				displayCenteredTextLine(3, "Right Button > Run");
+				displayCenteredTextLine(4, "Left Button > Shutdown");
+				wait1Msec(500);
+			}
+		}
+	}
+}

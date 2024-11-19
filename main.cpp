@@ -9,12 +9,12 @@
 void runLoop(state_t &state) {
 	// STANDBY MODE: await RESTOCK or END_SHIFT command
 	if (state.mode == 0) {
-		state.mode = ui_get_standby_state(state);
+		ui_standby(state);
 	}
 
 	// RESTOCK MODE: robot indexes items
 	else if (state.mode == 1) {
-		loading();
+		loading(state);
 	}
 
 	// END_SHIFT MODE: call shutdown procedure
@@ -25,7 +25,6 @@ void runLoop(state_t &state) {
 	// ROUTE MODE: routing and line following
 	else if (state.mode == 3) {
 		flr_route(state);
-		flr_travel_loop(1400, state);
 	}
 
 	// DELIVER: moving box off robot
@@ -42,18 +41,13 @@ task main() {
 
 	state_t state;
 	init_state(state); // Initializes global system state
-	/*
+
 	while (state.mode != -1) {
 		runLoop(state);
 	}
-	*/
 
 	/*
 	flr_route(state);
-	flr_travel_loop(1400, state);
+	flr_travel_loop(1600, state);
 	*/
-
-	loading();
-	flr_route(state);
-	flr_travel_loop(1400, state);
 }

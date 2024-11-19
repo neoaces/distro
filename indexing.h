@@ -59,7 +59,7 @@ void ind_index(state_t &state)
 }
 */
 
-void loading() {
+void loading(state_t &state) {
 		for(int i = 0; i < 6; i++) {
 			switch (getColorName(S4)) {
 				case colorRed:
@@ -93,4 +93,6 @@ void loading() {
 			motor[motorA] = 0;
 			wait1Msec(1000);
 		}
+
+		state.mode = Route;
 }

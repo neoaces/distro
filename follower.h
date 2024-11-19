@@ -56,6 +56,7 @@ void flr_color_seek_rotate(int color, bool is_turning_left) {
 
 void flr_route(state_t &state) {
 	const int distances[3] = {2300, 1200, 2100};
+	setMotorTarget(motorB, 7, 15);
 
 	for (int i = 0; i < 3; i++) {
 		flr_travel_loop(distances[i], state);
@@ -74,6 +75,7 @@ void flr_route(state_t &state) {
 		sensorReset(S3);
 		wait1Msec(1000);
 	}
-
-	state.mode = Deliver; // Moves to delivery state when finished
+	flr_travel_loop(1600, state);
+	setMotorTarget(motorB, 0, 15);
+	state.mode = Standby; // Moves to delivery state when finished
 }
