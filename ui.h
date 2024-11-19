@@ -23,12 +23,14 @@ void decrement(ubyte &n, ubyte limit) {
 	}
 }
 
-void ui_display_lines(ubyte n, string *elements, ubyte selected) { // NOTE: 8 possible text lines
+void ui_display_lines(ubyte n, string *elements, ubyte& selected) { // NOTE: 8 possible text lines
 	for (ubyte i = 0; i < n; i++) {
 		if (i == selected) {
-			displayTextLine(8 - (n - i), "> %s", elements[i]);
+			displayTextLine(5, "> %s", elements[i]);
+			displayTextLine(5, "> %s", elements[i]);
 		} else {
-			displayTextLine(8 - (n - 1), "%s", elements[i]);
+			displayTextLine(5, "%s", elements[i]);
+			displayTextLine(5, "%s", elements[i]);
 		}
 	}
 }
@@ -38,23 +40,25 @@ ubyte ui_get_selection(state_t &state, int n, string *selections) {
 	ubyte selected = 0;
 
 	while (true) {
-		ui_display_lines(n, selections, selected);
+		ui_display_lines(1, selections, selected);
 
-		if (getButtonPress(buttonEnter)== true) {
-			while(getButtonPress(buttonEnter) == true) {}; // Wait for release of button
-			return selected;
-		}
+		//if (getButtonPress(buttonEnter)== true) {
+			//while(getButtonPress(buttonEnter) == true) {}; // Wait for release of button
+			//return selected;
+		//}
 
-		if (getButtonPress(buttonUp)== true) {
-			while(getButtonPress(buttonUp) == true) {}; // Wait for release of button
-			increment(selected, n);
-		}
+		//if (getButtonPress(buttonUp)== true) {
+			//while(getButtonPress(buttonUp) == true) {}; // Wait for release of button
+			//increment(selected, n);
+		//}
 
-		if (getButtonPress(buttonDown)== true) {
-			while(getButtonPress(buttonDown) == true) {}; // Wait for release of button
-			decrement(selected, n);
-		}
+		//if (getButtonPress(buttonDown)== true) {
+			//while(getButtonPress(buttonDown) == true) {}; // Wait for release of button
+			//decrement(selected, n);
+		//}
 	}
+
+	return 0;
 }
 
 states_e ui_get_standby_state(state_t &state) {
