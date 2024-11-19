@@ -6,12 +6,12 @@
 
 task main()
 {
-	float kp = 0.15;
+	float kp = 0.2;
 	float kd = 0.01;
-	float ki = 0.00001;
+	float ki = 0;
 	float last_error = 0, error = 0, derivative = 0, integral = 0, correction = 0, base_speed = -25;
 	nMotorEncoder[motorC] = 0;
-	while(abs(nMotorEncoder[motorC]) < 1500) {
+	while(abs(nMotorEncoder[motorC]) < 6500) {
 		error = getColorReflected(S3) - getColorReflected(S2);
 		datalogAddValue(1, error);
 		integral += error;
