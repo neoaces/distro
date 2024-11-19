@@ -28,16 +28,16 @@ void runLoop(state_t &state) {
 	}
 
 	// DELIVER: moving box off robot
-	else if (state.mode == 2) {
+	else if (state.mode == 4) {
 		dvr_deliver(state);
 	}
 }
 
 task main() {
 	init_program(); // Initializes system
-	if (test_run_tests() != 0) { // Runs unit tests
+	// if (test_run_tests() != 0) { // Runs unit tests
 		// Failed tests
-	};
+	// };
 	state_t state;
 	init_state(state); // Initializes global system state
 

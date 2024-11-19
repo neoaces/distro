@@ -3,7 +3,7 @@
 
 // S2: Color Sensor: indexing
 void init_program() {
-	// Init color sensor.
+	// Init color sensor;
 }
 
 // \return int: returns 0 if successfully popped, otherwise -1.
@@ -15,7 +15,7 @@ int pop_stack(state_t &state, color_e index) {
 		}
 	}
 
-	return -1
+	return -1;
 }
 
 // \return int: returns the index of the next free space, otherwise -1.
