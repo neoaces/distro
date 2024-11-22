@@ -47,6 +47,11 @@ int push_stack(state_t &state, color_e index) {
 
 
 void shutdown() {
-
-
+	motor[motorA] = motor[motorB] = motor[motorC] = motor[motorD] = 0;
+	nMotorEncoder[motorA] = nMotorEncoder[motorB] = nMotorEncoder[motorC] = nMotorEncoder[motorD] = 0;
+	sensorReset(S1);
+	sensorReset(S2);
+	sensorReset(S3);
+	sensorReset(S4);
+	stopAllTasks();
 }

@@ -1,4 +1,3 @@
-#include "deliver.h"
 #include "follower.h"
 #include "indexing.h"
 #include "main.h"
@@ -14,7 +13,7 @@ void runLoop(state_t &state) {
 
 	// RESTOCK MODE: robot indexes items
 	else if (state.mode == 1) {
-		loading(state);
+		ind_loading(state);
 	}
 
 	// END_SHIFT MODE: call shutdown procedure
@@ -29,25 +28,25 @@ void runLoop(state_t &state) {
 
 	// DELIVER: moving box off robot
 	else if (state.mode == 4) {
-		dvr_deliver(state);
+		//dvr_deliver(state);
 	}
+}
+
+task killswitch() {
+	while(!getTouchValue(S1)){}
+	stopAllTasks();
 }
 
 task main() {
 	init_program(); // Initializes system
-	// if (test_run_tests() != 0) { // Runs unit tests
-		// Failed tests
-	// };
-
 	state_t state;
 	init_state(state); // Initializes global system state
+	SensorType[S1] = sensorEV3_Touch;
+	wait1Msec(50);
+
+	startTask(killswitch);
 
 	while (state.mode != -1) {
 		runLoop(state);
 	}
-
-	/*
-	flr_route(state);
-	flr_travel_loop(1600, state);
-	*/
 }

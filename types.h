@@ -1,5 +1,8 @@
 #pragma once
 
+// This enum, states_e, represents the state of the robot at any given moment.
+// We use the state in the global configuration struct and use the state
+// along with a jump table that decides the logic required for the current state.
 typedef enum States {
 	Standby = 0,
 	Restock = 1,
@@ -21,14 +24,9 @@ typedef enum Colors {
 
 typedef struct SystemState {
 	states_e mode; // Refers to either startup, restock, delivery, or end_shift.
-	int stack[3][2]; // TODO: update with new data structure.
-	color_e destination;
+	int stack[3][2]; //Used to index the pieces as they come in.
 } state_t;
 
 void init_state(state_t &state) {
-	// TEST 10:57PM only follow route
-	// state.mode = Route; // Enters standby mode.
-
-	// TEST 10:57PM test UI
-	state.mode = Standby;
+	state.mode = Standby; // Set the initial state to the standby state.
 }
