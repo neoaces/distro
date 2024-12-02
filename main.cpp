@@ -4,7 +4,7 @@
 #include "ui.h"
 #include "types.h"
 
-// void runLoop(state_t &state)
+// void runLoop(state_t &state) - ANZLE CHAVEZ
 // state: The global state struct
 // After the robot is initialized inside task main(), runLoop acts as a jump table, and delegates
 // execution to the appropriate state function for the current state.
@@ -31,7 +31,7 @@ void runLoop(state_t &state) {
 	}
 }
  
-// task killSwitch()
+// task killSwitch() - ADITYYA KAUSHAL
 // Our robot, given that it is the only robot during the demo, we decided that a physical e-stop 
 // would be beneficial by helping us immediately stop execution, and allowed us to test our robot 
 // faster. It relies on a touch sensor, easily accessible on the top of the robot, to stop
@@ -42,7 +42,7 @@ task killSwitch() {
 	stopAllTasks();
 }
 
-// task main()
+// task main() - ANZLE CHAVEZ
 // Logic is kept to a minimum in here. Other than initializing the states, the main() function calls
 // runLoop(state_t &state), which delegates the execution to the appropriate state function.
 

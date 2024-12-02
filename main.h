@@ -45,6 +45,8 @@ int push_stack(state_t &state, color_e index) {
 }
 
 
+// void shutdown() - ADITYYA KAUSHAL
+// Performs all necessary checks and shuts down motors before shutdown.
 
 void shutdown() {
 	motor[motorA] = motor[motorB] = motor[motorC] = motor[motorD] = 0;

@@ -2,6 +2,11 @@
 #include "types.h"
 #include "main.h"
 
+// void flr_travel_loop(int degrees_rotation, state_t *state)
+// ALGORITHM:
+// 1. Follow the line using PID control for a preset, measured distance.
+// 2. Change to color mode, and drive forward until color is found (in this case, red)
+
 void flr_travel_loop(int degrees_rotation, state_t *state) {
 	// We use a PD controller to control our line follower.
 	// NOTE: We do not include an I term because in our testing, we experienced integral windup.
@@ -25,6 +30,9 @@ void flr_travel_loop(int degrees_rotation, state_t *state) {
 	}
 }
 
+// void flr_seek_color(int color)
+// Used to seek towards a coloured line, which defines checkpoints (two at each unloading bay)
+
 void flr_seek_color(int color) {
 
 	motor[motorC] = motor[motorD] = -10;
@@ -33,6 +41,8 @@ void flr_seek_color(int color) {
 	motor[motorC] = motor[motorD] = 0;
 }
 
+// void flr_color_seek_rotate(int color, bool is_turning_left)
+// Rotates towards the unloading bay.
 void flr_color_seek_rotate(int color, bool is_turning_left) {
 	nMotorEncoder[motorC] = 0;
 
@@ -55,6 +65,14 @@ void flr_color_seek_rotate(int color, bool is_turning_left) {
 	}
 	motor[motorC] = motor[motorD] = 0;
 }
+
+// void flr_travel_loop(int degrees_rotation, state_t *state)
+// ALGORITHM:
+// 1. Follow the line using PID control for a preset, measured distance.
+// 2. Change to color mode, and drive forward until color is found (in this case, red)
+// 3. Turn 90° towards the unloading bay, and drive forward until color is found.
+// 4. Reverse steps 2 and 3
+// Continue until all 3 destinations have been delivered to, and then route back to start.
 
 void flr_route(state_t &state) {
 	const int distances[3] = {2000, 1200, 2100};
