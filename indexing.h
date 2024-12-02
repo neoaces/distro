@@ -7,6 +7,7 @@
 // 1. Based on colour of block, switch sorter to desired position
 // 2. Drives towards the next block.
 // 3. Picks up the next block
+// Repeats 6 times until all blocks are picked up.
 
 void ind_loading(state_t &state) {
 	// Resets indexer

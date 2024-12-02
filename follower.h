@@ -3,9 +3,7 @@
 #include "main.h"
 
 // void flr_travel_loop(int degrees_rotation, state_t *state)
-// ALGORITHM:
-// 1. Follow the line using PID control for a preset, measured distance.
-// 2. Change to color mode, and drive forward until color is found (in this case, red)
+// Follows the loop for a preset distance.
 
 void flr_travel_loop(int degrees_rotation, state_t *state) {
 	// We use a PD controller to control our line follower.
